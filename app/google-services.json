@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "382498855504",
+    "firebase_url": "https://swappit-8645e.firebaseio.com",
+    "project_id": "swappit-8645e",
+    "storage_bucket": "swappit-8645e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382498855504:android:0bf43bf538d24554ee0f55",
+        "android_client_info": {
+          "package_name": "com.example.swappit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382498855504-j222v8pm95qn6hkb0vudqik4et3skqe7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh5L21tQhZ6L7nuqU_2ipCW5RbY8jwSYk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382498855504-j222v8pm95qn6hkb0vudqik4et3skqe7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
