@@ -17,7 +17,7 @@ public class HomeScreen extends AppCompatActivity {
     }//end of on create
 
     public void onProfile(View view){
-        startActivity(new Intent(getApplicationContext(),ProfileScreen.class));
+       startActivity(new Intent(getApplicationContext(),ProfileScreen.class));
         //finish();
     }//end of profile
 

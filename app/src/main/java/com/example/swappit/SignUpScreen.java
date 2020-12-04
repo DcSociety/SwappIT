@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -121,7 +122,6 @@ public class SignUpScreen extends AppCompatActivity {
                             Toast.makeText(SignUpScreen.this, "Successfully Signed Up!", Toast.LENGTH_SHORT).show();
                             userID = forAuth.getCurrentUser().getUid();//to retrieve user id of the current logged in user
                             DocumentReference documentReference = forStore.collection("users").document(userID);//create document ref
-
                             //creating and storing user data
                             Map<String,Object> user = new HashMap<>();
                             user.put("FName",sName);
@@ -132,6 +132,11 @@ public class SignUpScreen extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG,"onSuccess: User Profile is created for "+ userID);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG,"onFailure: "+ e.toString() );
                                 }
                             });//end tag of document ref
                             startActivity(new Intent(getApplicationContext(),HomeScreen.class));

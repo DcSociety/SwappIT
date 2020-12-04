@@ -50,6 +50,13 @@ public class LogInScreen extends AppCompatActivity {
         //for firebase authentication
         forAuth = FirebaseAuth.getInstance();
 
+        //detect nya if currently logged in ka
+        if(forAuth.getCurrentUser() != null){
+            Toast.makeText(this, "Logged In", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(),HomeScreen.class));
+            finish();
+        }
+
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
