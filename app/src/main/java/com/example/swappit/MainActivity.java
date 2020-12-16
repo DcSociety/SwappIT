@@ -3,6 +3,7 @@ package com.example.swappit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     //variables for animation
     Animation topAnim, bottomAnim;
-
+    SharedPreferences OnBoardingScreen;//to check if user use app for the first time
     //variables for logo and title splash screen
     ImageView appLogo;
     TextView appTitle;
@@ -45,9 +46,25 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, WelcomeScreen.class);
-                startActivity(intent);
-                finish();
+                OnBoardingScreen = getSharedPreferences("OnBoardingScreen",MODE_PRIVATE);
+                boolean isFirstTime = OnBoardingScreen.getBoolean("firstTime",true);
+
+                 if(isFirstTime){
+                    SharedPreferences.Editor editor2 = OnBoardingScreen.edit();
+                    editor2.putBoolean("firstTime",false);
+                    editor2.commit();
+
+                    Intent intent = new Intent(MainActivity.this, OnBoarding.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, WelcomeScreen.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+
             }
         },Splash_Screen);
 

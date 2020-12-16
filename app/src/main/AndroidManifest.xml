@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_swappit"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwappIT">
-        <activity android:name=".ProfileScreen"></activity>
+        <activity android:name=".OnBoarding"></activity>
+        <activity android:name=".ProfileScreen" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".SignUpScreen" />
         <activity android:name=".LogInScreen" />

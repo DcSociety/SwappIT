@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SwappIT</string>
+    <string name="headings1">first Heading</string>
+    <string name="headings2">second first Heading</string>
+    <string name="headings3">three Heading</string>
+    <string name="headings4">fourth Heading</string>
+    <string name="desc1">This the first description</string>
+    <string name="desc2">This the second description</string>
+    <string name="desc3">This the three first description</string>
+    <string name="desc4">This the fourth description</string>
 </resources>
