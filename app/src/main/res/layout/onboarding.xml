@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".OnBoarding"
     android:padding="20dp"
-    android:background="@drawable/bg4">
+    android:background="#f7f3f0">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/Slider"
@@ -29,6 +29,7 @@
         android:padding="10dp"
         android:text="SKIP"
         android:textColor="@color/dark_blue"
+        app:backgroundTint="#f7f3f0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +70,8 @@
             android:drawableEnd="@drawable/nextarrow"
             android:drawableRight="@drawable/nextarrow"
             android:onClick="next"
-            android:paddingBottom="30dp" />
+            android:paddingBottom="30dp"
+            app:backgroundTint="#f7f3f0" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
