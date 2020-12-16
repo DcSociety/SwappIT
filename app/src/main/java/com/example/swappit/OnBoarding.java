@@ -21,7 +21,7 @@ public class OnBoarding extends AppCompatActivity {
     LinearLayout dots;
     SliderAdapter sliderAdapter;
     TextView[] Dots;
-    Button letsGetStarted;
+    Button letsGetStarted, skipB,nextB;
     Animation animation;
     int currentPosition;
     @Override
@@ -33,6 +33,8 @@ public class OnBoarding extends AppCompatActivity {
         viewPager = findViewById(R.id.Slider);
         dots = findViewById(R.id.Dots);
         letsGetStarted = findViewById(R.id.getStarted);
+        skipB = findViewById(R.id.skip_btn);
+        nextB = findViewById(R.id.nextBtn);
         //Calling slider adapter
         sliderAdapter = new SliderAdapter(this);
 
@@ -79,17 +81,26 @@ public class OnBoarding extends AppCompatActivity {
             //to hide lets get started button on first to third slider
             if(position == 0){
                 letsGetStarted.setVisibility(View.INVISIBLE);
+                skipB.setVisibility(View.VISIBLE);
+                nextB.setVisibility(View.VISIBLE);
             }
             else if(position == 1){
                 letsGetStarted.setVisibility(View.INVISIBLE);
+                skipB.setVisibility(View.VISIBLE);
+                nextB.setVisibility(View.VISIBLE);
             }
             else if(position ==2){
                 letsGetStarted.setVisibility(View.INVISIBLE);
+                skipB.setVisibility(View.VISIBLE);
+                nextB.setVisibility(View.VISIBLE);
             }
             else {
                 animation = AnimationUtils.loadAnimation(OnBoarding.this,R.anim.button_animation);
                 letsGetStarted.setAnimation(animation);
                 letsGetStarted.setVisibility(View.VISIBLE);
+                skipB.setVisibility(View.INVISIBLE);
+                nextB.setVisibility(View.INVISIBLE);
+
             }
 
         }
