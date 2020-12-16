@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">SwappIT</string>
-    <string name="headings1">first Heading</string>
-    <string name="headings2">second first Heading</string>
-    <string name="headings3">three Heading</string>
-    <string name="headings4">fourth Heading</string>
-    <string name="desc1">This the first description</string>
-    <string name="desc2">This the second description</string>
-    <string name="desc3">This the three first description</string>
-    <string name="desc4">This the fourth description</string>
+    <string name="headings1">WELCOME TO SwappIT</string>
+    <string name="headings2">LIST YOUR ITEM AND SWAP YOUR ITEM EASILY</string>
+    <string name="headings3">CHAT WITH OTHER USERS AND TRADERS</string>
+    <string name="headings4">SEARCH NEARBY TO SWAP</string>
+    <string name="desc1">Do you want your unwanted old stuff to exchange for something you can use now? \nThen SwappIT is the best app for you!</string>
+    <string name="desc2">SwappIT makes it easier for you to look for nice items you liked to swap using only your mobile phone in your home or anywhere.</string>
+    <string name="desc3">Chat with traders about the item you are interested anytime</string>
+    <string name="desc4">You can set your location to find the nearby traders and meet up with them faster. \nWhat are you waiting for SwappIT now!</string>
 </resources>
