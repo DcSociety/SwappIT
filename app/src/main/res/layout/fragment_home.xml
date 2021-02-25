@@ -1,0 +1,116 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.HomeFragment"
+    android:background="@drawable/bg5"
+    >
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bar"
+        android:background="@color/white"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/swap"/>
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_chat1"/>
+
+            </RelativeLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="-5dp"
+            android:layout_marginRight="-5dp"
+            android:id="@+id/last_bar"
+            android:background="@color/dark_blue"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/dark_blue"
+                android:src="@drawable/ic_swapfeed"
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/all_items"/>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="?android:attr/buttonBarButtonStyle"
+                android:background="@color/dark_blue"
+                android:src="@drawable/ic_followers"
+                android:id="@+id/following_items"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rec"
+        android:layout_below="@+id/bar"
+        android:id="@+id/toolbar2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_search_light"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_bar2"
+            android:background="@color/white"
+            android:hint="Search..."
+            android:paddingLeft="3dp"
+            android:textColorHint="@color/dark_blue"
+            android:textColor="@color/dark_blue"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="20dp"/>
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar2"
+        android:id="@+id/recycle_viewer">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_circular"
+        android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>

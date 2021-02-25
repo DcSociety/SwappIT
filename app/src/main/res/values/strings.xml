@@ -8,4 +8,6 @@
     <string name="desc2">SwappIT makes it easier for you to look for nice items you liked to swap using only your mobile phone in your home or anywhere.</string>
     <string name="desc3">Chat with traders about the item you are interested anytime</string>
     <string name="desc4">You can set your location to find the nearby traders and meet up with them faster. \nWhat are you waiting for SwappIT now!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

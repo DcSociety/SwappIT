@@ -102,7 +102,6 @@
         android:background="@drawable/rec"
         android:ems="10"
         android:hint="Full Name"
-        android:inputType="text"
         android:paddingLeft="20dp"
         android:textColor="#000A09"
         android:textColorHint="#247A74"

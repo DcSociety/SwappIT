@@ -3,6 +3,7 @@ package com.example.swappit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -34,11 +37,13 @@ public class SignUpScreen extends AppCompatActivity {
     //variables for log in btn
     Button btnSign;
     TextView txtLog;
-    EditText inputName,inputEmail,inputPass,inputConfirm,inputNum;
+    EditText inputName, inputEmail, inputPass, inputConfirm, inputNum;
     ProgressBar progress2;
     FirebaseAuth forAuth;//for firebase authentication
-    FirebaseFirestore forStore; //for firebase fireStore storing of user data
-    String userID; //for users' data identification
+    // FirebaseFirestore forStore; //for firebase fireStore storing of user data
+    //String userID; //for users' data identification
+    DatabaseReference reference;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +58,18 @@ public class SignUpScreen extends AppCompatActivity {
         inputPass = findViewById(R.id.inputPass);
         inputConfirm = findViewById(R.id.inputConfirm);
         inputNum = findViewById(R.id.inputContact);
-        progress2 =findViewById(R.id.progressBar2);
+        progress2 = findViewById(R.id.progressBar2);
 
         //calling firebase authentication
         forAuth = FirebaseAuth.getInstance();
 
         //calling firebase fireStore
-        forStore = FirebaseFirestore.getInstance();
+        // forStore = FirebaseFirestore.getInstance();
 
         //detect nya if currently logged in ka
-        if(forAuth.getCurrentUser() != null){
+        if (forAuth.getCurrentUser() != null) {
             Toast.makeText(this, "Logged In", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(),HomeScreen.class));
+            startActivity(new Intent(getApplicationContext(), HomeScreen.class));
             finish();
         }
 
@@ -82,83 +87,91 @@ public class SignUpScreen extends AppCompatActivity {
 
 
                 //validation para sa inputs
-                if(TextUtils.isEmpty(sEmail)){
-                    inputEmail.setError("Please fill up E-mail");
-                    Toast.makeText(SignUpScreen.this, "Please fill up E-mail", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(sPass)){
-                    inputPass.setError("Please fill up Password");
-                    Toast.makeText(SignUpScreen.this, "Please fill up Password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(sConfirm)){
-                    inputConfirm.setError("Please confirm your password");
-                    Toast.makeText(SignUpScreen.this, "Please fill up confirm your Password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(sPass.length() <6){
+                if (TextUtils.isEmpty(sEmail) || TextUtils.isEmpty(sPass)|| TextUtils.isEmpty(sConfirm)||
+                        TextUtils.isEmpty(sNumber)||TextUtils.isEmpty(sName)) {
+                    Toast.makeText(SignUpScreen.this, "Please fill up all fields", Toast.LENGTH_SHORT).show();
+                }else if (sPass.length() < 6) {
                     inputPass.setError("Password must be at least 6 characters");
                     Toast.makeText(SignUpScreen.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.equals(sPass,sConfirm)){
 
-                }
-                else{
-                    Toast.makeText(SignUpScreen.this, "Password doesn't match!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
-                //progressbar visible
-                progress2.setVisibility(View.VISIBLE);
-
-                //sign up the user input in firebase hope this work
-                forAuth.createUserWithEmailAndPassword(sEmail,sPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(SignUpScreen.this, "Successfully Signed Up!", Toast.LENGTH_SHORT).show();
-                            userID = forAuth.getCurrentUser().getUid();//to retrieve user id of the current logged in user
-                            DocumentReference documentReference = forStore.collection("users").document(userID);//create document ref
-                            //creating and storing user data
-                            Map<String,Object> user = new HashMap<>();
-                            user.put("FName",sName);
-                            user.put("Email",sEmail);
-                            user.put("Contact",sNumber);
-
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG,"onSuccess: User Profile is created for "+ userID);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG,"onFailure: "+ e.toString() );
-                                }
-                            });//end tag of document ref
-                            startActivity(new Intent(getApplicationContext(),HomeScreen.class));
-                        }else{
-                            Toast.makeText(SignUpScreen.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progress2.setVisibility(View.INVISIBLE);
-                        }
+                } else {
+                    if (TextUtils.equals(sPass, sConfirm)) {
+                        progress2.setVisibility(View.VISIBLE);
+                        register(sName, sEmail, sPass, sNumber);
 
                     }
-                });
+                    else{
+                        inputPass.setError("Password doesn't match!");
+                        inputConfirm.setError("Password doesn't match!");
+                        Toast.makeText(SignUpScreen.this, "Password doesn't match", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
+
+
+               ;
+                //progressbar visible
+
+                //pd.setMessage("Please wait...");
+                // pd.show();
+                //sign up the user input in firebase hope this work
+
 
             }
 
 
         });
+
 
         //setting on click on txt log in here
         txtLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),LogInScreen.class));
+                startActivity(new Intent(getApplicationContext(), LogInScreen.class));
             }
         });
+
     }
+
+    private void register(String fullname, String email, String password, String contact) {
+        forAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(SignUpScreen.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser firebaseUser = forAuth.getCurrentUser();
+                            String userid = firebaseUser.getUid();
+
+                            reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userid);
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("id", userid);
+                            hashMap.put("fullname", fullname);
+                            hashMap.put("email", email);
+                            hashMap.put("contact", contact);
+                            hashMap.put("bio", "");
+                            hashMap.put("imageurl", "https://firebasestorage.googleapis.com/v0/b/swappit-8645e.appspot.com/o/pfp.png?alt=media&token=a0187d67-1380-412b-b863-8ff583ca6822");
+
+                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                        Intent intent = new Intent(SignUpScreen.this, HomeScreen.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+
+                                    }
+                                }
+                            });
+                        } else {
+                            progress2.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignUpScreen.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
 }
