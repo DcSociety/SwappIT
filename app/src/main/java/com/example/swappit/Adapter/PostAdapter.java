@@ -3,6 +3,7 @@ package com.example.swappit.Adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.swappit.CommentActivity;
 import com.example.swappit.Fragment.PostDetailFragment;
 import com.example.swappit.Fragment.ProfileFragment;
 import com.example.swappit.Model.Post;
@@ -31,6 +33,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -74,6 +77,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
        isLiked(post.getPostid(), holder.like);
         nrLikes(holder.likes,post.getPostid());
         isSaved(post.getPostid(),holder.save);
+        getComments(post.getPostid(), holder.comments);
 
         holder.image_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,11 +149,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 if(holder.like.getTag().equals("like")){
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid())
                             .child(firebaseUser.getUid()).setValue(true);
+                    addNotifications(post.getPublisher(), post.getPostid());
                 }else{
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid())
                             .child(firebaseUser.getUid()).removeValue();
 
                 }
+            }
+        });
+
+        holder.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CommentActivity.class);
+                intent.putExtra("postid", post.getPostid());
+                intent.putExtra("publisherid",post.getPublisher());
+                mContext.startActivity(intent);
+            }
+        });
+
+        holder.comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CommentActivity.class);
+                intent.putExtra("postid", post.getPostid());
+                intent.putExtra("publisherid",post.getPublisher());
+                mContext.startActivity(intent);
             }
         });
 
@@ -182,12 +207,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             location = itemView.findViewById(R.id.location);
             comments = itemView.findViewById(R.id.comments);
 
-
-
-
-
-
         }
+    }
+    //adding notif in database
+    private void addNotifications(String userid, String postid){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(userid);
+
+        HashMap<String, Object>hashMap =new HashMap<>();
+        hashMap.put("userid", firebaseUser.getUid());
+        hashMap.put("text", "liked your post");
+        hashMap.put("postid", postid);
+        hashMap.put("ispost",true);
+
+        reference.push().setValue(hashMap);
+
+    }
+
+    private void getComments(String postid, TextView comments){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Comments").child(postid);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                comments.setText("View all " + snapshot.getChildrenCount() + " comments");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void isLiked(String postid, ImageView imageView){

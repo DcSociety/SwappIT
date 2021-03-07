@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,7 +22,8 @@ public class OnBoarding extends AppCompatActivity {
     LinearLayout dots;
     SliderAdapter sliderAdapter;
     TextView[] Dots;
-    Button letsGetStarted, skipB,nextB;
+    Button letsGetStarted;
+    ImageButton  skipB,nextB;
     Animation animation;
     int currentPosition;
     @Override
@@ -55,7 +57,7 @@ public class OnBoarding extends AppCompatActivity {
         finish();
     }
     private void addDots(int position){
-        Dots = new TextView[4];
+        Dots = new TextView[5];
         dots.removeAllViews();
         for(int i=0; i<Dots.length; i++){
             Dots[i] = new TextView(this);
@@ -90,6 +92,11 @@ public class OnBoarding extends AppCompatActivity {
                 nextB.setVisibility(View.VISIBLE);
             }
             else if(position ==2){
+                letsGetStarted.setVisibility(View.INVISIBLE);
+                skipB.setVisibility(View.VISIBLE);
+                nextB.setVisibility(View.VISIBLE);
+            }
+            else if(position ==3){
                 letsGetStarted.setVisibility(View.INVISIBLE);
                 skipB.setVisibility(View.VISIBLE);
                 nextB.setVisibility(View.VISIBLE);

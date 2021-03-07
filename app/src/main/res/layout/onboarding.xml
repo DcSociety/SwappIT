@@ -19,12 +19,11 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-    <Button
+    <ImageButton
         android:id="@+id/skip_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/skip_icon"
-        android:drawableRight="@drawable/skip_icon"
+        android:src="@drawable/skip_icon"
         android:onClick="skip"
         android:padding="10dp"
         android:text="SKIP"
@@ -59,7 +58,7 @@
             android:paddingBottom="20dp"
             android:orientation="horizontal"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/nextBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,8 +66,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginRight="-1dp"
             android:layout_marginBottom="-3dp"
-            android:drawableEnd="@drawable/nextarrow"
-            android:drawableRight="@drawable/nextarrow"
+            android:src="@drawable/nextarrow"
             android:onClick="next"
             android:paddingBottom="30dp"
             app:backgroundTint="#f7f3f0" />

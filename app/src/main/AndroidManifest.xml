@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_swappit"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwappIT">
-        <activity android:name=".About"></activity>
+        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".About" />
         <activity android:name=".netDetection" />
         <activity android:name=".OptionsActivity" />
         <activity android:name=".EditProfileActivity" />
@@ -18,7 +19,6 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".PostActivity" />
         <activity android:name=".OnBoarding" />
-        <activity android:name=".ProfileScreen" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".SignUpScreen" />
         <activity android:name=".LogInScreen" />
@@ -31,11 +31,11 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 </manifest>

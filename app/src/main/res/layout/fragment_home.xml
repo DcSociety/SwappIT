@@ -35,7 +35,7 @@
                     android:layout_height="35dp"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_chat1"/>
+                    android:src="@drawable/app_logo"/>
 
             </RelativeLayout>
 

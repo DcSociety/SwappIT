@@ -23,6 +23,7 @@ public class SliderAdapter extends PagerAdapter {
             R.drawable.slider_one,
             R.drawable.slider_two,
             R.drawable.slider_three,
+            R.drawable.sliderfour,
 
     };
     int headings[]= {
@@ -30,6 +31,7 @@ public class SliderAdapter extends PagerAdapter {
             R.string.headings2,
             R.string.headings3,
             R.string.headings4,
+            R.string.headings5,
     };
 
     int descriptions[]={
@@ -37,6 +39,7 @@ public class SliderAdapter extends PagerAdapter {
             R.string.desc2,
             R.string.desc3,
             R.string.desc4,
+            R.string.desc5,
     };
 
     @Override
